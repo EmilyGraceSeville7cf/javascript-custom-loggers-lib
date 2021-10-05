@@ -1,4 +1,4 @@
-# custom-loggers-lib
+# Сustom loggers
 
 ## Description
 
