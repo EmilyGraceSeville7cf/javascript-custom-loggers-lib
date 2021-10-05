@@ -2,7 +2,7 @@
 
 ## Description
 
-Google Script logger small library.
+Library to log output.
 
 ## Usage
 
