@@ -1,7 +1,9 @@
-"use strict";
+/* eslint-disable no-unused-vars */
+'use strict';
 
+// eslint-disable-next-line require-jsdoc
 function __currentDate() {
-  return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "H:m:s");
+  return Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'H:m:s');
 }
 
 /**
@@ -111,8 +113,8 @@ class TextLogger extends AbstractLogger {
      */
     this.file = null;
 
-    let iterator = this.folder.getFilesByName(file);
-    if (!iterator.hasNext()) this.file = this.folder.createFile(file, "");
+    const iterator = this.folder.getFilesByName(file);
+    if (!iterator.hasNext()) this.file = this.folder.createFile(file, '');
     else this.file = iterator.next();
   }
 
@@ -123,9 +125,9 @@ class TextLogger extends AbstractLogger {
    */
   writeLog(message) {
     this.file.setContent(
-      `${this.file
-        .getBlob()
-        .getDataAsString()}\n[log] ${__currentDate()}: ${message}`
+        `${this.file
+            .getBlob()
+            .getDataAsString()}\n[log] ${__currentDate()}: ${message}`,
     );
   }
 
@@ -136,9 +138,9 @@ class TextLogger extends AbstractLogger {
    */
   writeInfo(message) {
     this.file.setContent(
-      `${this.file
-        .getBlob()
-        .getDataAsString()}\n[info] ${__currentDate()}: ${message}`
+        `${this.file
+            .getBlob()
+            .getDataAsString()}\n[info] ${__currentDate()}: ${message}`,
     );
   }
 
@@ -149,9 +151,9 @@ class TextLogger extends AbstractLogger {
    */
   writeWarn(message) {
     this.file.setContent(
-      `${this.file
-        .getBlob()
-        .getDataAsString()}\n[warn] ${__currentDate()}: ${message}`
+        `${this.file
+            .getBlob()
+            .getDataAsString()}\n[warn] ${__currentDate()}: ${message}`,
     );
   }
 
@@ -162,9 +164,9 @@ class TextLogger extends AbstractLogger {
    */
   writeError(message) {
     this.file.setContent(
-      `${this.file
-        .getBlob()
-        .getDataAsString()}\n[error] ${__currentDate()}: ${message}`
+        `${this.file
+            .getBlob()
+            .getDataAsString()}\n[error] ${__currentDate()}: ${message}`,
     );
   }
 
@@ -182,6 +184,8 @@ Object.freeze(TextLogger);
 
 /**
  * Creates logger to write logs to console.
+ *
+ * @return {ConsoleLogger} ConsoleLogger instance.
  */
 function newConsoleLogger() {
   return new ConsoleLogger();
@@ -192,6 +196,8 @@ function newConsoleLogger() {
  *
  * @param {string} folder  Folder id where create .log file.
  * @param {string} file File name write logs to.
+ *
+ * @return {TextLogger} TextLogger instance.
  */
 function newTextLogger(folder, file) {
   return new TextLogger(folder, file);
