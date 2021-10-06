@@ -1,0 +1,24 @@
+{
+  "name": "custom-loggers-lib",
+  "version": "1.0.0",
+  "description": "Library to log output.",
+  "main": "Library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Console-Utils/custom-loggers-lib.git"
+  },
+  "author": "Emily Seville",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Console-Utils/custom-loggers-lib/issues"
+  },
+  "homepage": "https://github.com/Console-Utils/custom-loggers-lib#readme",
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.37",
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
