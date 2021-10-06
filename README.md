@@ -1,5 +1,7 @@
 # Сustom loggers
 
+[![Continuous Integration](https://github.com/Console-Utils/custom-loggers-lib/actions/workflows/ci.yml/badge.svg)](https://github.com/Console-Utils/custom-loggers-lib/actions/workflows/ci.yml)
+
 ## Description
 
 Library to log output.
