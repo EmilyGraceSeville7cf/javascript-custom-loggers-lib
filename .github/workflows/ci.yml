@@ -7,7 +7,7 @@ env:
   TOOLS: tools
 
 jobs:
-  check-target:
+  check-mergeability:
     runs-on: ubuntu-20.04
     
     steps:
