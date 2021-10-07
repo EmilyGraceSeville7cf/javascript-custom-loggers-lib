@@ -47,3 +47,14 @@ jobs:
         run: |
           npm install -g markdownlint-cli
           markdownlint *.md
+
+  shell-lint:
+    runs-on: ubuntu-20.04
+    needs: check-target
+    if: github.base_ref == "dev"
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint
+        run: |
+          shellcheck tools/*.sh
