@@ -10,21 +10,25 @@ jobs:
     steps:
       - name: check
         run: |
+          message=
+          declare -i status=0
+
           [[ $GITHUB_REF == refs/heads/@(feature|bugfix)/* ]] && {
-            echo "Source branch is correct."
-            exit 0
+            message='Source branch is correct.'
           } || {
-            echo "Source branch is incorrect: it must be feature or bugfix branch."
-            exit 0
+            message='Source branch is incorrect: it must be feature or bugfix branch.'
+            status+=1
           }
 
           [[ $GITHUB_BASE_REF == "refs/heads/dev" ]] && {
-            echo "Base branch is correct."
-            exit 0
+            message+=$'\nBase branch is correct.'
           } || {
-            echo "Base branch is incorrect: it must be dev branch."
-            exit 0
-          }   
+            message+=$'\nBase branch is incorrect: it must be dev branch.'
+            status+=1
+          }
+
+          (( status == 0 ))
+          exit $?
 
   js-lint:
     runs-on: ubuntu-20.04
