@@ -1,11 +1,34 @@
 name: Continuous Integration
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
 jobs:
+  check-target:
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - name: check
+        run: |
+          [[ $GITHUB_REF == refs/heads/@(feature|bugfix)/* ]] && {
+            echo "Source branch is correct."
+            exit 0
+          } || {
+            echo "Source branch is incorrect: it must be feature or bugfix branch."
+            exit 0
+          }
+
+          [[ $GITHUB_BASE_REF == "refs/heads/dev" ]] && {
+            echo "Base branch is correct."
+            exit 0
+          } || {
+            echo "Base branch is incorrect: it must be dev branch."
+            exit 0
+          }   
+
   js-lint:
     runs-on: ubuntu-20.04
+    needs: check-target
     
     strategy:
       matrix:
@@ -24,6 +47,7 @@ jobs:
   
   markdown-lint:
     runs-on: ubuntu-20.04
+    needs: check-target
     
     steps:
       - uses: actions/checkout@v2
