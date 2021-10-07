@@ -18,7 +18,7 @@ jobs:
 
   check-tag-existence:
     runs-on: ubuntu-20.04
-    needs: check-target
+    needs: check-mergeability
     if: github.base_ref == 'master'
 
     steps:
@@ -29,7 +29,7 @@ jobs:
 
   js-lint:
     runs-on: ubuntu-20.04
-    needs: check-target
+    needs: check-mergeability
     if: github.base_ref == 'dev'
     
     strategy:
@@ -49,7 +49,7 @@ jobs:
   
   markdown-lint:
     runs-on: ubuntu-20.04
-    needs: check-target
+    needs: check-mergeability
     if: github.base_ref == 'dev'
     
     steps:
@@ -61,7 +61,7 @@ jobs:
 
   shell-lint:
     runs-on: ubuntu-20.04
-    needs: check-target
+    needs: check-mergeability
     if: github.base_ref == 'dev'
     
     steps:
