@@ -16,17 +16,18 @@ jobs:
           [[ $GITHUB_REF == refs/heads/@(feature|bugfix)/* ]] && {
             message='Source branch is correct.'
           } || {
-            message='Source branch is incorrect: it must be feature or bugfix branch.'
+            message='Source ($GITHUB_REF) branch is incorrect: it must be feature or bugfix branch.'
             status+=1
           }
 
           [[ $GITHUB_BASE_REF == "refs/heads/dev" ]] && {
             message+=$'\nBase branch is correct.'
           } || {
-            message+=$'\nBase branch is incorrect: it must be dev branch.'
+            message+=$'\nBase ($GITHUB_BASE_REF) branch is incorrect: it must be dev branch.'
             status+=1
           }
 
+          echo "$message"
           (( status == 0 ))
           exit $?
 
