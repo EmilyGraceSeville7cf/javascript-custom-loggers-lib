@@ -1,11 +1,36 @@
 name: Continuous Integration
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
+
+env:
+  TOOLS: tools
 
 jobs:
+  check-mergeability:
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: check
+        run: |
+          bash $TOOLS/check-branch-mergeability.sh
+
+  check-tag-existence:
+    runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'master'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint
+        run: |
+          bash check-tag-existence.sh
+
   js-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'dev'
     
     strategy:
       matrix:
@@ -24,6 +49,8 @@ jobs:
   
   markdown-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'dev'
     
     steps:
       - uses: actions/checkout@v2
@@ -31,3 +58,14 @@ jobs:
         run: |
           npm install -g markdownlint-cli
           markdownlint *.md
+
+  shell-lint:
+    runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'dev'
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint
+        run: |
+          shellcheck tools/*.sh
