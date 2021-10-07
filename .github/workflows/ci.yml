@@ -16,6 +16,17 @@ jobs:
         run: |
           bash $TOOLS/check-branch-mergeability.sh
 
+  check-tag-existence:
+    runs-on: ubuntu-20.04
+    needs: check-target
+    if: github.base_ref == 'master'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint
+        run: |
+          bash check-tag-existence.sh
+
   js-lint:
     runs-on: ubuntu-20.04
     needs: check-target
