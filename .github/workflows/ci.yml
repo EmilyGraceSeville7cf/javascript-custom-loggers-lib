@@ -3,6 +3,9 @@ on:
   pull_request:
     branches: [ dev ]
 
+env:
+  TOOLS: tools
+
 jobs:
   check-target:
     runs-on: ubuntu-20.04
@@ -10,26 +13,7 @@ jobs:
     steps:
       - name: check
         run: |
-          message=
-          declare -i status=0
-
-          [[ $GITHUB_HEAD_REF == @(feature|bugfix)/* ]] && {
-            message='Source branch is correct.'
-          } || {
-            message="Source ($GITHUB_HEAD_REF) branch is incorrect: it must be feature or bugfix branch."
-            status+=1
-          }
-
-          [[ $GITHUB_BASE_REF == "dev" ]] && {
-            message+="\nBase branch is correct."
-          } || {
-            message+="\nBase ($GITHUB_BASE_REF) branch is incorrect: it must be dev branch."
-            status+=1
-          }
-
-          echo -e "$message"
-          (( status == 0 ))
-          exit $?
+          bash $TOOLS/check-branch-mergeability.sh
 
   js-lint:
     runs-on: ubuntu-20.04
