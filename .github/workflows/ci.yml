@@ -4,7 +4,7 @@ on:
     branches: [ dev, master ]
 
 env:
-  TOOLS: tools
+  TOOLS: ci-helpers
 
 jobs:
   check-mergeability:
