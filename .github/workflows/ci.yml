@@ -19,7 +19,7 @@ jobs:
   js-lint:
     runs-on: ubuntu-20.04
     needs: check-target
-    if: github.base_ref == "dev"
+    if: github.base_ref == 'dev'
     
     strategy:
       matrix:
@@ -39,7 +39,7 @@ jobs:
   markdown-lint:
     runs-on: ubuntu-20.04
     needs: check-target
-    if: github.base_ref == "dev"
+    if: github.base_ref == 'dev'
     
     steps:
       - uses: actions/checkout@v2
@@ -51,7 +51,7 @@ jobs:
   shell-lint:
     runs-on: ubuntu-20.04
     needs: check-target
-    if: github.base_ref == "dev"
+    if: github.base_ref == 'dev'
     
     steps:
       - uses: actions/checkout@v2
