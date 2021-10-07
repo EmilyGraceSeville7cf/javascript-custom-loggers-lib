@@ -13,7 +13,7 @@ jobs:
           message=
           declare -i status=0
 
-          [[ $GITHUB_REF == @(feature|bugfix)/* ]] && {
+          [[ $GITHUB_HEAD_REF == @(feature|bugfix)/* ]] && {
             message='Source branch is correct.'
           } || {
             message="Source ($GITHUB_HEAD_REF) branch is incorrect: it must be feature or bugfix branch."
