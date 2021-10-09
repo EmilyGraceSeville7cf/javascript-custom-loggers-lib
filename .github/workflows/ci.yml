@@ -25,9 +25,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - name: lint
         run: |
-          bash check-tag-existence.sh
+          bash $TOOLS/check-tag-existence.sh
 
   js-lint:
     runs-on: ubuntu-20.04
