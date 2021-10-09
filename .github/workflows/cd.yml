@@ -14,6 +14,6 @@ jobs:
           node-version: 16
       - name: deploy
         run: |
-          npm install @google/clasp
+          npm install -g @google/clasp
           clasp login --creds <(echo "${{ secrets.CREDS }}")
           clasp deploy --description "Library to log output."
