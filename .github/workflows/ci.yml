@@ -1,11 +1,41 @@
 name: Continuous Integration
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ dev, master ]
+
+env:
+  TOOLS: ci-helpers
 
 jobs:
+  check-mergeability:
+    runs-on: ubuntu-20.04
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: check
+        run: |
+          bash $TOOLS/check-branch-mergeability.sh
+
+  check-tag-existence:
+    runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'master'
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+      - name: lint
+        run: |
+          bash $TOOLS/check-tag-existence.sh
+
   js-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'dev'
     
     strategy:
       matrix:
@@ -24,6 +54,8 @@ jobs:
   
   markdown-lint:
     runs-on: ubuntu-20.04
+    needs: check-mergeability
+    if: github.base_ref == 'dev'
     
     steps:
       - uses: actions/checkout@v2
