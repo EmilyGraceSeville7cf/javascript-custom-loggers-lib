@@ -4,6 +4,8 @@
 
 ## Description
 
+> ⚠️ This project is no longer maintained.
+
 Library to log output.
 
 ## Usage
